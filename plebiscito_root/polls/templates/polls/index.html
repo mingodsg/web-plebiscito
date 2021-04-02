@@ -1,0 +1,19 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Últimas 5 preguntas</title>
+</head>
+
+<body>
+  {% if latest_question_list %}
+  <h2>Últimas 5 preguntas</h2>
+    <ul>
+    {% for question in latest_question_list %}
+    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }} </a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <h2>No hay preguntas</h2>
+  {% endif %}
+</body>
+</html>
