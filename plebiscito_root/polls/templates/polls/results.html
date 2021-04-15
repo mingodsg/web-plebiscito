@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="sub-title">
+  <h1>{{ question.question_text }}</h1>
+</div>
+<div class="sub-content">
+  <h3>Resultados:</h2>
+  <ul>
+{% for choice in question.choice_set.all %}
+  <div class="sub-option">
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
+  </div>
+{% endfor %}
+  </ul>
+</div>
 
-<h1>{{ question.question_text }}</h1>
-
-<ul>
-{% for choice in question.choice_set.all %}}
-  <li>{{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
-{% endfor %}}
-</ul>
-
-<a href="{% url 'polls:detail' question.id %}">Votar otra vez?</a>
-
+<div class="sub-footer">
+  <a href="{% url 'polls:detail' question.id %}">Volver a la pregunta</a>
+  <br><a href="{% url 'polls:index' %}">Ver últimas preguntas</a>
 {% endblock %}
+</div>

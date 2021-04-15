@@ -46,7 +46,7 @@ def vote(request, question_id):
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
             'question':question,
-            'error_message':"No elegiste ninguna de las opciones",
+            'error_message':"Selecciona una respuesta",
             })
     else:
         selected_choice.votes += 1
