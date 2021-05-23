@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load socialaccount %}
 <div>
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button>login</button>
+
     </form>
 
 </div>
