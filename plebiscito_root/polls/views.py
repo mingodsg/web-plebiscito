@@ -53,3 +53,9 @@ def vote(request, question_id):
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     # In order to avoid race condition, use F()
+
+class CreatePoll(CreateView):
+    redirect_field_name = 'polls/index.html'
+    template_name = 'polls/poll_form.html'
+    form_class = QuestionForm
+    model = Question
