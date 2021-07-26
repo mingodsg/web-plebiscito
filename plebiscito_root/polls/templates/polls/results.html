@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="sub-title">
-  <h1>{{ question.question_text }}</h1>
-</div>
-<div class="sub-content">
-  <h3>Resultados:</h2>
-  <ul>
-{% for choice in question.choice_set.all %}
-  <div class="sub-option">
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
-  </div>
-{% endfor %}
-  </ul>
-</div>
 
-<div class="sub-footer">
-  <a href="{% url 'polls:detail' question.id %}">Volver a la pregunta</a>
-  <br><a href="{% url 'polls:index' %}">Ver últimas preguntas</a>
-{% endblock %}
+
+
+
+
+<div class="card">
+  <div class="card-header  text-center">
+    <h1>{{ question.question_text }}</h1>
+  </div>
+  
+  <h4 class="card-sub-title pt-3 px-3">Resultados:</h4>
+  
+  <div class="card-body">
+    <ul>
+  {% for choice in question.choice_set.all %}
+    <div class="p-3">
+      <li>{{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
+      <hr />
+    </div>
+  {% endfor %}
+    </ul>
+    <div class="text-center">
+      <a class="card-link" href="{% url 'polls:detail' question.id %}">Volver a la pregunta</a>
+      <a class="card-link" href="{% url 'polls:index' %}">Ver últimas preguntas</a>
+    </div>
+  {% endblock %}
+  </div>
 </div>
