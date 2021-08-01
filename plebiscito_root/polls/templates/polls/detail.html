@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card">
+<div class="card border-dark">
   
-  <div class="card-header  text-center">
+  <div class="card-header text-center">
     <h1>{{ question.question_text }}</h1>
   </div>
 
@@ -17,17 +17,21 @@
           
         </label>
         
-        <!-- <label class="btn btn-outline-primary" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label> -->
+        
       </li>
     </ul>
     {% endfor %}
   </div>
 
   <div class="sub-footer text-center pb-3">
-        {% if error_message  %}
-      <p class="error">{{ error_message }}</p>
-      {% endif %} 
-        <input class="btn btn-primary text-center" type="submit" value="VOTAR">
+      {% if error_message  %}
+      <p class="text-danger">{{ error_message }}</p>
+      {% endif %}
+      {% if user.is_authenticated %} 
+      <input class="btn btn-secondary text-center" type="submit" value="VOTAR">
+      {% else %}
+      <p class="text-muted text-center small">Debe <a href="{% url 'account_login' %}">ingresar</a> o <a href="{% url 'account_signup' %}">crear una cuenta</a> para poder votar</p>
+      {% endif %}
   </div>
     </form>
 
