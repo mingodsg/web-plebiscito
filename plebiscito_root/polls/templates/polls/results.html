@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="sub-title">
-  <h1>{{ question.question_text }}</h1>
-</div>
-<div class="sub-content">
-  <h3>Resultados:</h2>
-  <ul>
-{% for choice in question.choice_set.all %}
-  <div class="sub-option">
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}</li>
+
+<div class="container d-flex justify-content-center">
+  <div class="card border-dark m-5" style="width: 50%;">
+    <div class="card-header">
+      <h1>{{ question.question_text }}</h1>
+    </div>
+    <div class="card-body">
+      <h5 class="text-primary mt-3 card-text">Resultados:</h5>
+      
+      {% for choice in question.choice_set.all %}
+      <p class="mt-4">
+        {{ choice.choice_text }} -- {{ choice.votes }} voto{{ choice.votes|pluralize }}
+      </p>
+      <div class="progress" style="height: 40px;">
+        <div class="progress-bar" role="progressbar" style="width: {{ choice.votes }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"> </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+    <div class="card-footer">
+      <p class="mt-3 text-center"><a href="{% url 'polls:detail' question.id %}"> Volver a la pregunta</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="{% url 'polls:index' %}">Ver últimas preguntas</a></p>
+    </div>  
   </div>
-{% endfor %}
-  </ul>
 </div>
 
-<div class="sub-footer">
-  <a href="{% url 'polls:detail' question.id %}">Volver a la pregunta</a>
-  <br><a href="{% url 'polls:index' %}">Ver últimas preguntas</a>
-{% endblock %}
-</div>
+
+    {% endblock %}
