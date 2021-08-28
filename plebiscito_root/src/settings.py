@@ -63,7 +63,7 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'facebook': {
         'METHOD': 'oauth2',
-        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SDK_URL': '//connect.facebook.net/sdk.js',
         'SCOPE': ['email', 'public_profile'],
         'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
         'INIT_PARAMS': {'cookie': True},
@@ -78,7 +78,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'short_name'
         ],
         'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': 'path.to.callable',
+        'LOCALE_FUNC': '',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v11.0',
     }
