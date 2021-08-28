@@ -1,18 +1,17 @@
 PWD 					:= ./plebiscito_root
-DB_NAME 			:= db.sqlite3
+DB_NAME 			:= $(shell echo mydatabase)
+DB_PATH				:= $(CURDIR)/${DB_NAME}
+
 FIXTURE_ARRAY := $(shell ls plebiscito_root/*/fixture/*.yaml)
 
-.PHONY: db db_clean load db_reload test dev
+.PHONY: db db-clean db-reload load test dev
 
-dev: db_clean db load
+dev: 
 	python plebiscito_root/manage.py runserver
 
-db:
+db: 
 	python3 ${PWD}/manage.py makemigrations
 	python3 ${PWD}/manage.py migrate
-
-db_clean:
-	rm ${PWD}/${DB_NAME}
 
 load:
 	@for fixture in ${FIXTURE_ARRAY}; do \
@@ -20,7 +19,19 @@ load:
 		python3 ${PWD}/manage.py loaddata $$fixture ; \
 	done
 
-db_reload: db_clean db load
+db-reload: db-clean db load
+
+check-clean: 
+	@echo -n "¿Seguro? [y/N] " && read ans && [ $${ans:-N} = y ]
+	@echo Confirmado
+
+db-clean: check-clean
+ifeq (,$(wildcard ${DB_PATH}))
+	@[ -e "${DB_PATH}" ] && rm ${DB_PATH} && echo "DB eliminada: ${DB_PATH}" || echo "${DB_PATH} no existe"
+else
+	@echo "DB no existe"
+	@echo ${DB_NAME"}
+endif
 
 compose:
 	docker-compose up
