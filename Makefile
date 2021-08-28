@@ -2,7 +2,7 @@ PWD 					:= ./plebiscito_root
 DB_NAME 			:= mydatabase
 DB_PATH				:= $(CURDIR)/${DB_NAME}
 
-FIXTURE_ARRAY := $(shell ls plebiscito_root/*/fixture/*)
+FIXTURE_ARRAY := $(shell ls plebiscito_root/*/fixture/*.yaml)
 
 .PHONY: db db-clean db-reload load test dev
 
