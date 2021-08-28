@@ -46,12 +46,8 @@ SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    #django-allaith
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-    
-
-
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -64,6 +60,27 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': 'K_C-zQ92r-ltGw48mRWMNWSe',
             'key': ''
         }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v11.0',
     }
 }
 
