@@ -1,29 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="sub-title">
-  <h1>{{ question.question_text }}</h1>
-</div>
 
-<div class="sub-content">
-<form action='{% url 'polls:vote' question.id %}' method='post'>
-{% csrf_token %}
-{% for choice in question.choice_set.all %}
-  <div class="sub-option">
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+<div class="container d-flex justify-content-center">
+  <div class="card border-dark m-5" style="width: 50%;">
+    <div class="card-header">
+      <h1>{{ question.question_text }}</h1>
+    </div>
+    <div class="card-body">
+      {% if user.is_authenticated %} 
+      <h5 class="text-primary mt-3 card-text">Elegí una de las siguientes opciones:
+      {% else %}
+      <h5 class="text-danger mt-3 card-text"><i class="fas fa-exclamation-circle"></i> Es necesario ingresar o registrarse para votar.
+      </h5>
+      {% endif %}
+      <p class="text-secondary card-subtitle card-text mt-3 mb-3">
+        {% if not user.is_authenticated %} 
+        Por favor, <a href="{% url 'account_login' %}">ingresá</a> o <a href="">registrate</a> para continuar
+        {% else %}
+        <i class="fas fa-exclamation-circle"></i> Haciendo click ya estás votando
+        {% endif %}
+      </p>
+      <form action='{% url 'polls:vote' question.id %}' method='post' class="d-grid">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input class="btn-check" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" onclick="this.form.submit();" {% if not user.is_authenticated %} disabled {% endif %}>
+            <label class="btn btn-outline-secondary btn-lg mt-3" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% endfor %}
+      </form>
+      
+    </div>
+    <div class="card-footer">
+      {% if error_message  %}
+      <p class="text-center text-danger">{{ error_message }}</p>
+      {% endif %} 
+      <p class="text-center"><a href="{% url 'polls:index' %}">Ver últimas preguntas</a></p>
+    </div>
   </div>
-{% endfor %}
 </div>
-
-<div class="sub-footer">
-    {% if error_message  %}
-  <p class="error">{{ error_message }}</p>
-  {% endif %} 
-    <input type="submit" value="VOTAR">
-</div>
-</form>
-
-<a href="{% url 'polls:detail' question.id %}"></a>
-
+  
 {% endblock %}
