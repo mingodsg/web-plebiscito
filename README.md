@@ -33,4 +33,9 @@ TO DO:
 		- Users login
 		- Users signup
 
-	
+# Instalación
+
+## OS
+Además de tener los paquetes de Python3 y pip, algunas librerías son necesarias:
+* `libpq-dev` (en Debian/Ubuntu) para poder correr pg_config (Dependencia de PostgreSQL)
+* `wheel` 
