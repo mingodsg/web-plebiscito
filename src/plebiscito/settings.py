@@ -11,9 +11,9 @@ TEMPLATES_DIR = [ BASE_DIR / 'templates' ]
 SECRET_KEY = '9qd1n7^nw!(rd%6y4vozcx%*l19$riqq$202no+($_n0&93c9%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # TODO: Cambiar a False para prod
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] 
 
 
 # Application definition
@@ -26,10 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    #plebiscito
     'polls',
     'accounts',
-     #django-allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -76,7 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'plebiscito.urls'
 
 
 
@@ -96,7 +94,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
+WSGI_APPLICATION = 'plebiscito.wsgi.application'
 
 
 # Database
@@ -120,6 +118,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'accounts.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
