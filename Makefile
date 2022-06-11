@@ -1,4 +1,4 @@
-PWD 					:= ./plebiscito_root
+PWD 				:= src
 DB_NAME 			:= $(shell echo mydatabase)
 DB_PATH				:= $(CURDIR)/${DB_NAME}
 
@@ -7,7 +7,7 @@ FIXTURE_ARRAY := $(shell ls plebiscito_root/*/fixture/*.yaml)
 .PHONY: db db-clean db-reload load test dev
 
 dev: 
-	python plebiscito_root/manage.py runserver
+	python $(PWD)/manage.py runserver
 
 db: 
 	python3 ${PWD}/manage.py makemigrations
