@@ -1,0 +1,22 @@
+---
+- model: sites.site
+  pk: 1
+  fields:
+    domain: localhost
+    name: localhost
+- model: socialaccount.socialapp
+  pk: 1
+  fields:
+    id: '1'
+    provider: facebook
+    name: facebook
+    client_id: '138053835112736'
+    secret: '085965dc1a724883e028ea8abbd1e956'
+    key: ''
+- model: socialaccount.socialapp_sites
+  pk: 1
+  fields:
+    id: 1
+    socialapp_id: 1
+    site_id: 1
+

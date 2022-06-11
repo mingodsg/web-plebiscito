@@ -1,5 +1,5 @@
 PWD 					:= ./plebiscito_root
-DB_NAME 			:= $(shell echo mydatabase)
+DB_NAME 			:= mydatabase
 DB_PATH				:= $(CURDIR)/${DB_NAME}
 
 FIXTURE_ARRAY := $(shell ls plebiscito_root/*/fixture/*.yaml)
@@ -26,10 +26,10 @@ check-clean:
 	@echo Confirmado
 
 db-clean: check-clean
-ifeq (,$(wildcard ${DB_PATH}))
-	@[ -e "${DB_PATH}" ] && rm ${DB_PATH} && echo "DB eliminada: ${DB_PATH}" || echo "${DB_PATH} no existe"
+ifeq (,$(wildcard ./$(DB_PATH)))
+	@[ -e "${DB_PATH}" ] && rm ${DB_PATH} && echo "DB eliminada: ${DB_PATH}" || echo "${DB_PATH} no existe en bash"
 else
-	@echo "DB no existe"
+	@echo "DB no existe en Makefile"
 	@echo ${DB_NAME"}
 endif
 
