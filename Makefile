@@ -39,6 +39,10 @@ compose:
 compose_rebuild:
 	docker-compose build && docker-compose up 
 
+SHA = $(git rev-parse --short HEAD)
+make build:
+	podman build -t elplebiscito:latest .
+
 help-install:
 	@echo "python3 -m venv .venv"
 	@echo "source .venv/bin/activate"

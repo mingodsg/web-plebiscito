@@ -1,3 +1,4 @@
 plebiscito_root/db.sqlite3
 **__pycache__**
 **mydatabase**
+.venv/**
