@@ -40,8 +40,11 @@ compose_rebuild:
 	docker-compose build && docker-compose up 
 
 SHA = $(git rev-parse --short HEAD)
-make build:
+build:
 	podman build -t elplebiscito:latest .
+
+run:
+	podman run -p 8000:8000 --name elplebiscito elplebiscito:latest 
 
 help-install:
 	@echo "python3 -m venv .venv"
