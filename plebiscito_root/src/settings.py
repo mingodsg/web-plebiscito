@@ -11,9 +11,9 @@ TEMPLATES_DIR = [ BASE_DIR / 'templates' ]
 SECRET_KEY = '9qd1n7^nw!(rd%6y4vozcx%*l19$riqq$202no+($_n0&93c9%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -155,4 +155,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL ="/static/"
+STATIC_ROOT="/app/elplebiscito/"
