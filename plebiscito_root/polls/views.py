@@ -18,7 +18,6 @@ class IndexView(generic.ListView):
     #return render(request, 'polls/index.html', context)
 
 
-
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
