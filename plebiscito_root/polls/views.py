@@ -38,7 +38,6 @@ class ResultsView(generic.DetailView):
 
 
 
-
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     choice = get_object_or_404(Choice, pk=question_id)
