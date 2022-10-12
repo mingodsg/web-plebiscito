@@ -61,14 +61,7 @@ def vote(request, question_id):
         selected_choice.save()
         Vote.objects.create(voter=request.user, choice=choice, geo_location=request.META['REMOTE_ADDR'])
 
-        vote_data = Vote.objects.all()
-        geo_list = []
-        for item in vote_data:
-            geo_list.append(geocoder.ip(item.geo_location).latlng)
-
-        print(geo_list)
-
-        messages.success(request, geo_list)
+        messages.success(request, 'success')
 
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     # In order to avoid race condition, use F()

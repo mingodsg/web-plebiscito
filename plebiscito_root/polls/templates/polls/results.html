@@ -19,34 +19,41 @@
       {% endfor %}
       
     </div>
+    {% if messages %}
+      <script>
+        let loc_arr = [];
+      </script>
+      {% load custom_tags %}
+      {% for message in messages %}
+        <script>
+            loc_arr.push({{ message|json_parse }});
+        </script>
+      {% endfor %}
+    {% endif %}
     <div style="height: 350px;" id="map">
-      {% if messages %}
-        {% for message in messages %}
-            <script>
-              loc_arr.append({ message })
-            </script>
-        {% endfor %}
-        {% endif %}
       </div>
     <div class="card-footer">
       <p class="mt-3 text-center"><a href="{% url 'polls:detail' question.id %}"> Volver a la pregunta</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="{% url 'polls:index' %}">Ver últimas preguntas</a></p>
     </div>  
   </div>
     <script>
-      let loc_arr = [];
       var map = L.map('map').setView([-34.603722, -58.381592], 4);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
 
-      for(let i = 0; i < loc_arr.length; i++){
-        L.circle([loc_arr[i][0], loc_arr[i][1]], {
-          color: 'red',
-          fillColor: '#f03',
-          fillOpacity: 0.5,
-          radius: 500
-        }).addTo(map);
+      for(let i = 0; i < loc_arr[0].length; i++){
+        if(loc_arr[0][i][0] == undefined) {
+          continue;
+        } else{
+          L.circle([loc_arr[0][i][0], loc_arr[0][i][1]], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 500
+          }).addTo(map);
+        }
       }
 
       console.log(loc_arr);
