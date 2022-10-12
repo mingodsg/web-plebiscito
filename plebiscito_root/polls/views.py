@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.contrib import messages
+import geocoder
+
 
 from .models import Question, Choice, Vote
 
@@ -57,6 +60,16 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         Vote.objects.create(voter=request.user, choice=choice, geo_location=request.META['REMOTE_ADDR'])
+
+        vote_data = Vote.objects.all()
+        geo_list = []
+        for item in vote_data:
+            geo_list.append(geocoder.ip(item.geo_location).latlng)
+
+        print(geo_list)
+
+        messages.success(request, geo_list)
+
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     # In order to avoid race condition, use F()
 

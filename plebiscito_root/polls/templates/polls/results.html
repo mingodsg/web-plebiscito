@@ -19,6 +19,12 @@
       {% endfor %}
       
     </div>
+    {% if messages %}
+    <div class="card-footer">
+      {% for message in messages %}
+      <p class="text-danger">{{ message }}</p>
+      {% endfor %}
+      {% endif %}
     <div class="card-footer">
       <p class="mt-3 text-center"><a href="{% url 'polls:detail' question.id %}"> Volver a la pregunta</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="{% url 'polls:index' %}">Ver últimas preguntas</a></p>
     </div>  

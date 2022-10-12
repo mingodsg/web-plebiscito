@@ -28,7 +28,7 @@ class Choice(models.Model):
 class Vote(models.Model):
     choice = models.ForeignKey(Choice,on_delete=models.CASCADE)
     voter = models.ForeignKey(User,on_delete=models.CASCADE)
-    geo_location = models.CharField(max_length=200)
+    geo_location = models.CharField(max_length=50)
 
 
 
