@@ -44,6 +44,7 @@ def vote(request, question_id):
     choice = get_object_or_404(Choice, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        question.add_geo_tag(request.request.META['REMOTE_ADDR'])
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
             'question':question,
@@ -57,7 +58,7 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        Vote.objects.create(voter=request.user, choice=choice)
+        Vote.objects.create(voter=request.user, choice=choice, geo_location=request.META['REMOTE_ADDR'])
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
     # In order to avoid race condition, use F()
 
