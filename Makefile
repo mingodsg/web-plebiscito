@@ -44,3 +44,14 @@ help-install:
 	@echo "source .venv/bin/activate"
 	@echo "which python # Deberia apuntar a Python3"
 	@echo "pip install -r requirements.txt"
+
+
+run:
+	podman run -d -p 8000:8000 elplebiscito:0.0.1 
+
+
+CONTAINER_ID = $(shell podman ps | grep 'localhost/elplebiscito' | awk '{print $$1}')
+
+stop:
+	podman stop $(CONTAINER_ID)
+
