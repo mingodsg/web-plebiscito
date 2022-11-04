@@ -1,4 +1,4 @@
-PWD 					:= ./plebiscito_root
+PWD 				:= ./plebiscito_root
 DB_NAME 			:= $(shell echo mydatabase)
 DB_PATH				:= $(CURDIR)/${DB_NAME}
 
@@ -45,12 +45,16 @@ help-install:
 	@echo "which python # Deberia apuntar a Python3"
 	@echo "pip install -r requirements.txt"
 
+GIT_REF_TAG := $(shell git show-ref --head | head -n 1 | awk '{print $$1}' | cut -c35-)
+
+build:
+	podman build . -t asajaroff/elplebiscito:$(GIT_REF_TAG)
 
 run:
-	podman run -d -p 8000:8000 elplebiscito:0.0.1 
+	podman run -d -p 8000:8000 asajaroff/elplebiscito:$(GIT_REF_TAG)
 
 
-CONTAINER_ID = $(shell podman ps | grep 'localhost/elplebiscito' | awk '{print $$1}')
+CONTAINER_ID = $(shell podman ps | grep 'elplebiscito' | awk '{print $$1}')
 
 stop:
 	podman stop $(CONTAINER_ID)

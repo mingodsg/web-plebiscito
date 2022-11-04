@@ -1,5 +1,8 @@
 FROM python:3.11-slim-bullseye
 
+ENV PYTHONUNBUFFERED 1  
+ENV PYTHONDONTWRITEBYTECODE 1
+
 RUN apt update -y && \
     apt upgrade -y && \
     apt install -y libpq-dev build-essential
